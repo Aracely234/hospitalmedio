@@ -34,62 +34,21 @@ namespace Hospital
         public static double probabilidadanterior,nuevasuma;
         public static int nuevasfilas;
         public static double nuevoingresototal;
-        public static double nuevospreciosumar;
+        public static float nuevospreciosumar;
         public static double sumatoriacostos;
         //variables quitar 2
         public static double probabilidadanterior2, nuevasuma2,costo2;
         public static int nuevasfilas2;
         public static double sumatoriacostos2;
         public static double nuevoingresototal2, nuevospreciosumar2, sumatoriaingresos2;
-        public static double costo02, costo12, costo22, costo32, costo42;
+        public static double costo02, costo12, costo22, costo32, costo42,division;
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
             Form3 f3 = new Form3();
             f3.Show();
         }
-        private void buDecision_Click(object sender, EventArgs e)
-        {
-            //datapersonas.Rows.Clear();
-            probabilidadanterior = double.Parse(dataserviciosofrece.Rows[0].Cells[1].Value.ToString());
-            //labelprue.Text = probabilidadanterior.ToString();
-            //label8.Text = promedioanterior.ToString();
-            dataserviciosofrece.Rows.Remove(dataserviciosofrece.Rows[0]);
-            nuevasfilas = dataserviciosofrece.RowCount - 1;
-            nuevasuma = probabilidadanterior / nuevasfilas;
-            //label8.Text = Math.Round(nuevasuma,4).ToString();
-            double liminf1 = 0;
-            for (int a = 0; a < dataserviciosofrece.RowCount - 1; a++)
-            {
-                double promedioa = double.Parse(dataserviciosofrece.Rows[a].Cells[1].Value.ToString());
-                double promedion = promedioa + nuevasuma;
-                double pro1 = double.Parse(dataserviciosofrece.Rows[0].Cells[1].Value.ToString());
-                double pro2= pro1 + (double.Parse(dataserviciosofrece.Rows[1].Cells[1].Value.ToString()));
-                double pro3= pro2 + (double.Parse(dataserviciosofrece.Rows[2].Cells[1].Value.ToString()));
-                double pro4= pro3 + (double.Parse(dataserviciosofrece.Rows[3].Cells[1].Value.ToString()));
-                double pro5= pro4 + (double.Parse(dataserviciosofrece.Rows[4].Cells[1].Value.ToString()));
-                dataserviciosofrece.Rows[a].Cells[1].Value = Math.Round(promedion,4);
-                dataserviciosofrece.Rows[0].Cells[2].Value = liminf1;
-                dataserviciosofrece.Rows[0].Cells[3].Value = pro1;
-                dataserviciosofrece.Rows[1].Cells[2].Value = pro1;
-                dataserviciosofrece.Rows[1].Cells[3].Value = pro1 + (double.Parse(dataserviciosofrece.Rows[1].Cells[1].Value.ToString()));
-                dataserviciosofrece.Rows[2].Cells[2].Value = pro2;
-                dataserviciosofrece.Rows[2].Cells[3].Value= pro2 + (double.Parse(dataserviciosofrece.Rows[2].Cells[1].Value.ToString()));
-                dataserviciosofrece.Rows[3].Cells[2].Value = pro3;
-                dataserviciosofrece.Rows[3].Cells[3].Value = pro3 + (double.Parse(dataserviciosofrece.Rows[3].Cells[1].Value.ToString()));
-                dataserviciosofrece.Rows[4].Cells[2].Value = pro4;
-                dataserviciosofrece.Rows[4].Cells[3].Value = pro4 + (double.Parse(dataserviciosofrece.Rows[4].Cells[1].Value.ToString()));
-                dataserviciosofrece.Rows[5].Cells[2].Value = pro5;
-                dataserviciosofrece.Rows[5].Cells[3].Value = pro5 + (double.Parse(dataserviciosofrece.Rows[5].Cells[1].Value.ToString()));
-                
-            }
-            tablanuevaprimera();
-            tablaserviciosmenosuno();
-            nocompararmenosuno();
-            sumatoriamenos1ingresos();
-            tablasumatoriacostosdos();
-
-        }
+       
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -147,7 +106,7 @@ namespace Hospital
             nocomparar();
             //serviciostotal();
             Verificacion();
-            tablasumatoriacostos();
+           
         }
         public void NoPersonas()
         {
@@ -197,15 +156,6 @@ namespace Hospital
                 double vf6 = double.Parse(dataserviciosofrece.Rows[5].Cells[3].Value.ToString());
                 double vi7 = double.Parse(dataserviciosofrece.Rows[6].Cells[2].Value.ToString());
                 double vf7 = double.Parse(dataserviciosofrece.Rows[6].Cells[3].Value.ToString());
-                //se asigna el valor del costo
-                //c1 = double.Parse(dataserviciosofrece.Rows[0].Cells[5].Value.ToString());
-                //c2 = double.Parse(dataserviciosofrece.Rows[1].Cells[5].Value.ToString());
-                //c3 = double.Parse(dataserviciosofrece.Rows[2].Cells[5].Value.ToString());
-                //c4 = double.Parse(dataserviciosofrece.Rows[3].Cells[5].Value.ToString());
-                //c5 = double.Parse(dataserviciosofrece.Rows[4].Cells[5].Value.ToString());
-                //c6 = double.Parse(dataserviciosofrece.Rows[5].Cells[5].Value.ToString());
-                //c7 = double.Parse(dataserviciosofrece.Rows[6].Cells[5].Value.ToString());
-
                 if (redoneado <= vf1 && redoneado >= vi1)
                 {
                     // label6.Text = "AE";
@@ -400,6 +350,46 @@ namespace Hospital
             
         }
         //nuevas pruebas --------------------------------------------------------------
+        private void buDecision_Click(object sender, EventArgs e)
+        {
+            probabilidadanterior = double.Parse(dataserviciosofrece.Rows[0].Cells[1].Value.ToString());
+            dataserviciosofrece.Rows.Remove(dataserviciosofrece.Rows[0]);
+            nuevasfilas = dataserviciosofrece.RowCount - 1;
+            nuevasuma = probabilidadanterior / nuevasfilas;
+            //label8.Text = Math.Round(nuevasuma,4).ToString();
+            double liminf1 = 0;
+            for (int a = 0; a < dataserviciosofrece.RowCount - 1; a++)
+            {
+                double promedioa = double.Parse(dataserviciosofrece.Rows[a].Cells[1].Value.ToString());
+                double promedion = promedioa + nuevasuma;
+                double pro1 = double.Parse(dataserviciosofrece.Rows[0].Cells[1].Value.ToString());
+                double pro2 = pro1 + (double.Parse(dataserviciosofrece.Rows[1].Cells[1].Value.ToString()));
+                double pro3 = pro2 + (double.Parse(dataserviciosofrece.Rows[2].Cells[1].Value.ToString()));
+                double pro4 = pro3 + (double.Parse(dataserviciosofrece.Rows[3].Cells[1].Value.ToString()));
+                double pro5 = pro4 + (double.Parse(dataserviciosofrece.Rows[4].Cells[1].Value.ToString()));
+                double prodedionr= Math.Round(promedion, 1);
+                dataserviciosofrece.Rows[a].Cells[1].Value = prodedionr;
+                dataserviciosofrece.Rows[0].Cells[2].Value = liminf1;
+                dataserviciosofrece.Rows[0].Cells[3].Value = pro1;
+                dataserviciosofrece.Rows[1].Cells[2].Value = pro1;
+                dataserviciosofrece.Rows[1].Cells[3].Value = pro1 + (double.Parse(dataserviciosofrece.Rows[1].Cells[1].Value.ToString()));
+                dataserviciosofrece.Rows[2].Cells[2].Value = pro2;
+                dataserviciosofrece.Rows[2].Cells[3].Value = pro2 + (double.Parse(dataserviciosofrece.Rows[2].Cells[1].Value.ToString()));
+                dataserviciosofrece.Rows[3].Cells[2].Value = pro3;
+                dataserviciosofrece.Rows[3].Cells[3].Value = pro3 + (double.Parse(dataserviciosofrece.Rows[3].Cells[1].Value.ToString()));
+                dataserviciosofrece.Rows[4].Cells[2].Value = pro4;
+                dataserviciosofrece.Rows[4].Cells[3].Value = pro4 + (double.Parse(dataserviciosofrece.Rows[4].Cells[1].Value.ToString()));
+                dataserviciosofrece.Rows[5].Cells[2].Value = pro5;
+                dataserviciosofrece.Rows[5].Cells[3].Value = pro5 + (double.Parse(dataserviciosofrece.Rows[5].Cells[1].Value.ToString()));
+
+            }
+            tablanuevaprimera();
+            tablaserviciosmenosuno();
+            nocompararmenosuno();
+            sumatoriamenos1ingresos();
+           
+
+        }
         public void tablanuevaprimera()
         {
             a = 101;
@@ -447,14 +437,7 @@ namespace Hospital
 
             }
         }
-        public void tablasumatoriacostos()
-        {
-            foreach (DataGridViewRow row in dataserviciosofrece.Rows)
-            {
-                sumatoriacostos += Convert.ToDouble(row.Cells["CCOSTO"].Value);
-            }
-           // label8.Text = sumatoriacostos.ToString();
-        }
+        
         public void tablaserviciosmenosuno()
         {
             for (int a = 0; a <= 6; a++)
@@ -463,16 +446,14 @@ namespace Hospital
 
             }
             label8.Text = sumatoriacostos.ToString();
-            nuevoingresototal = sumatoriacostos - 75;
-            nuevospreciosumar = nuevoingresototal /6;
-            //label8.Text = nuevospreciosumar.ToString();
+            division = 12.5;
             //Costo
-            dataserviciosofrece.Rows[0].Cells[5].Value = 50+nuevospreciosumar;
-            dataserviciosofrece.Rows[1].Cells[5].Value = 150+nuevospreciosumar;
-            dataserviciosofrece.Rows[2].Cells[5].Value = 400+nuevospreciosumar;
-            dataserviciosofrece.Rows[3].Cells[5].Value = 950+nuevospreciosumar;
-            dataserviciosofrece.Rows[4].Cells[5].Value = 20+nuevospreciosumar;
-            dataserviciosofrece.Rows[5].Cells[5].Value = 200+nuevospreciosumar;
+            dataserviciosofrece.Rows[0].Cells[5].Value = 50+division;
+            dataserviciosofrece.Rows[1].Cells[5].Value = 150+division; 
+            dataserviciosofrece.Rows[2].Cells[5].Value = 400+division;
+            dataserviciosofrece.Rows[3].Cells[5].Value = 950+division;
+            dataserviciosofrece.Rows[4].Cells[5].Value = 20+division;
+            dataserviciosofrece.Rows[5].Cells[5].Value = 200+division;
         }
         public void nocompararmenosuno()
         {
@@ -513,7 +494,7 @@ namespace Hospital
                 {
                     //label6.Text = "SCF";
                     tiposervicio = "SCF";
-                    c2 = 50 + nuevospreciosumar;
+                    c2 = 50 + division;
                     acumulador3 = acumulador3 + c2;
                     numeroservicios2 = numeroservicios2 + 1;
                     datapersonas.Rows[b].Cells[2].Value = tiposervicio;
@@ -525,7 +506,7 @@ namespace Hospital
                 {
                     //label6.Text = "SCF";
                     tiposervicio = "SL";
-                    c3 = 150 + nuevospreciosumar;
+                    c3 = 150 + division;
                     acumulador4 = acumulador4 + c3;
                     numeroservicios3 = numeroservicios3 + 1;
                     datapersonas.Rows[b].Cells[2].Value = tiposervicio;
@@ -535,7 +516,7 @@ namespace Hospital
                 {
                     //label6.Text = "SCF";
                     tiposervicio = "OM";
-                    c4 = 400 + nuevospreciosumar;
+                    c4 = 400 + division;
                     acumulador5 = acumulador5 + c4;
                     numeroservicios4 = numeroservicios4 + 1;
                     datapersonas.Rows[b].Cells[2].Value = tiposervicio;
@@ -545,7 +526,7 @@ namespace Hospital
                 {
                     //label6.Text = "SCF";
                     tiposervicio = "OE";
-                    c5 = 950 + nuevospreciosumar;
+                    c5 = 950 + division;
                     acumulador6 = acumulador6 + c5;
                     numeroservicios5 = numeroservicios5 + 1;
                     datapersonas.Rows[b].Cells[2].Value = tiposervicio;
@@ -555,7 +536,7 @@ namespace Hospital
                 {
                     //label6.Text = "SCF";
                     tiposervicio = "CVyS";
-                    c6 = 20 + nuevospreciosumar;
+                    c6 = 20 + division;
                     acumulador7 = acumulador7 + c6;
                     numeroservicios6 = numeroservicios6 + 1;
                     datapersonas.Rows[b].Cells[2].Value = tiposervicio;
@@ -565,7 +546,7 @@ namespace Hospital
                 {
                     //label6.Text = "SCF";
                     tiposervicio = "CI";
-                    c7 = 200 + nuevospreciosumar;
+                    c7 = 200 + division;
                     acumulador8 = acumulador8 + c7;
                     numeroservicios7 = numeroservicios7 + 1;
                     datapersonas.Rows[b].Cells[2].Value = tiposervicio;
@@ -639,8 +620,6 @@ namespace Hospital
             costo22 = double.Parse(dataserviciosofrece.Rows[3].Cells[5].Value.ToString());
             costo32 = double.Parse(dataserviciosofrece.Rows[4].Cells[5].Value.ToString());
             costo42 = double.Parse(dataserviciosofrece.Rows[5].Cells[5].Value.ToString());
-            
-           // label8.Text = costo2.ToString();
             dataserviciosofrece.Rows.Remove(dataserviciosofrece.Rows[0]);
             nuevasfilas2 = 5;
             nuevasuma2 = probabilidadanterior2 / nuevasfilas2;
@@ -648,13 +627,15 @@ namespace Hospital
             double liminf1 = 0;
             for (int a = 0; a < 5; a++)
             {
+
                 double promedioa2 = double.Parse(dataserviciosofrece.Rows[a].Cells[1].Value.ToString());
                 double promedion2 = promedioa2 + nuevasuma2;
                 double pro11 = double.Parse(dataserviciosofrece.Rows[0].Cells[1].Value.ToString());
                 double pro22 = pro11 + (double.Parse(dataserviciosofrece.Rows[1].Cells[1].Value.ToString()));
                 double pro33 = pro22 + (double.Parse(dataserviciosofrece.Rows[2].Cells[1].Value.ToString()));
                 double pro44 = pro33 + (double.Parse(dataserviciosofrece.Rows[3].Cells[1].Value.ToString()));
-                dataserviciosofrece.Rows[a].Cells[1].Value = Math.Round(promedion2, 4);
+                double promedion2r= Math.Round(promedion2, 2);
+                dataserviciosofrece.Rows[a].Cells[1].Value = promedion2r;
                 dataserviciosofrece.Rows[0].Cells[2].Value = liminf1;
                 dataserviciosofrece.Rows[0].Cells[3].Value = pro11;
                 dataserviciosofrece.Rows[1].Cells[2].Value = pro11;
@@ -669,9 +650,9 @@ namespace Hospital
 
             }
             tablanuevasegunda();
-           
             tablaserviciosmenosdos();
             nocompararmenosdos();
+            sumatoriamenos1ingresosdos();
             
         }
         public void tablanuevasegunda()
@@ -721,32 +702,26 @@ namespace Hospital
 
             }
         }
-        public void tablasumatoriacostosdos()
-        {
-            foreach (DataGridViewRow row in dataserviciosofrece.Rows)
-            {
-                sumatoriacostos2 += Convert.ToDouble(row.Cells["CCOSTO"].Value);
-            }
-            //labelprue.Text = sumatoriacostos2.ToString();
-        }
+       
         public void tablaserviciosmenosdos()
         {
+            division = 0;
             for (int a = 0; a < 5; a++)
             {
                 dataserviciosofrece.Rows.Add();
 
             }
-            //labelprue.Text = sumatoriacostos.ToString();
-            nuevoingresototal2 = sumatoriacostos - costo2;
 
-            nuevospreciosumar2 = nuevoingresototal2 / 5;
+
+
+            division = 62.5 / 5;
             //label8.Text = nuevospreciosumar.ToString();
             //Costo
-            dataserviciosofrece.Rows[0].Cells[5].Value = costo02 + nuevospreciosumar2;
-            dataserviciosofrece.Rows[1].Cells[5].Value = costo12 + nuevospreciosumar2;
-            dataserviciosofrece.Rows[2].Cells[5].Value = costo22 + nuevospreciosumar2;
-            dataserviciosofrece.Rows[3].Cells[5].Value = costo32 + nuevospreciosumar2;
-            dataserviciosofrece.Rows[4].Cells[5].Value = costo42 + nuevospreciosumar2;
+            dataserviciosofrece.Rows[0].Cells[5].Value = costo02 + division;
+            dataserviciosofrece.Rows[1].Cells[5].Value = costo12 + division;
+            dataserviciosofrece.Rows[2].Cells[5].Value = costo22 + division;
+            dataserviciosofrece.Rows[3].Cells[5].Value = costo32 + division;
+            dataserviciosofrece.Rows[4].Cells[5].Value = costo42 + division;
         }
         public void nocompararmenosdos()
         {
@@ -785,7 +760,7 @@ namespace Hospital
                 {
                     //label6.Text = "SCF";
                     tiposervicio = "SL";
-                    c3 = 150 + nuevospreciosumar;
+                    c3 = costo02 + division;
                     acumulador4 = acumulador4 + c3;
                     numeroservicios3 = numeroservicios3 + 1;
                     datapersonas.Rows[b].Cells[2].Value = tiposervicio;
@@ -796,7 +771,7 @@ namespace Hospital
                 {
                     //label6.Text = "SCF";
                     tiposervicio = "OM";
-                    c4 = 400 + nuevospreciosumar;
+                    c4 = costo12 + division;
                     acumulador5 = acumulador5 + c4;
                     numeroservicios4 = numeroservicios4 + 1;
                     datapersonas.Rows[b].Cells[2].Value = tiposervicio;
@@ -806,7 +781,7 @@ namespace Hospital
                 {
                     //label6.Text = "SCF";
                     tiposervicio = "OE";
-                    c5 = 950 + nuevospreciosumar;
+                    c5 = costo22 + division;
                     acumulador6 = acumulador6 + c5;
                     numeroservicios5 = numeroservicios5 + 1;
                     datapersonas.Rows[b].Cells[2].Value = tiposervicio;
@@ -816,7 +791,7 @@ namespace Hospital
                 {
                     //label6.Text = "SCF";
                     tiposervicio = "CVyS";
-                    c6 = 20 + nuevospreciosumar;
+                    c6 = costo32=division;
                     acumulador7 = acumulador7 + c6;
                     numeroservicios6 = numeroservicios6 + 1;
                     datapersonas.Rows[b].Cells[2].Value = tiposervicio;
@@ -826,7 +801,7 @@ namespace Hospital
                 {
                     //label6.Text = "SCF";
                     tiposervicio = "CI";
-                    c7 = 200 + nuevospreciosumar;
+                    c7 = costo42 + division;
                     acumulador8 = acumulador8 + c7;
                     numeroservicios7 = numeroservicios7 + 1;
                     datapersonas.Rows[b].Cells[2].Value = tiposervicio;
